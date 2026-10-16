@@ -23,7 +23,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          cp target/release/republish republish-${{ github.ref_name }}-x86_64-linux
+          cp target/release/droidcam-relay droidcam-relay-${{ github.ref_name }}-x86_64-linux
           gh release create "${{ github.ref_name }}" \
-            republish-${{ github.ref_name }}-x86_64-linux \
+            droidcam-relay-${{ github.ref_name }}-x86_64-linux \
             --title "${{ github.ref_name }}" --generate-notes
