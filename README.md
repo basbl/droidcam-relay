@@ -5,7 +5,7 @@
 Relays a DroidCam MJPEG stream from a phone to a v4l2loopback virtual webcam.
 
 ```
-phone (MJPEG/HTTP :4747) ──▶ JPEG frames ──▶ ffmpeg (decode + yuv420p) ──▶ /dev/videoN
+phone (MJPEG/HTTP :4747) ──▶ JPEG frames ──▶ ffmpeg (scale + yuv420p) ──▶ /dev/videoN
 ```
 
 It uses only the Rust standard library.
@@ -15,7 +15,8 @@ The one runtime dependency is **ffmpeg**, and the virtual camera needs the **v4l
 
 - **Phone discovery** — scans the local /24 for a DroidCam (port 4747 redirecting to `/remote`) when no address is configured or the configured one is unreachable.
 - **Loopback auto-detect** — finds the virtual `/dev/videoN` by its sysfs node under `/devices/virtual/`, so a shifted index after a reboot still works.
-- **Resilient reconnect** — retries with exponential backoff (1→15 s), re-resolving the phone and device each attempt, so DHCP changes, phone sleep and an unplugged loopback all self-heal.
+- **Resilient reconnect** — re-resolves the phone and device on every attempt, so DHCP changes, phone sleep and an unplugged loopback all self-heal.
+- **No dropped camera** — one ffmpeg feeds the device for the whole run; only the frame source switches. While the phone is gone it shows a "broadcast interrupted" placeholder (`assets/interrupted.jpg`) instead of stopping, so apps like Google Meet keep the camera and recover on their own when the phone returns.
 
 ## Setting up the virtual camera
 
@@ -76,6 +77,7 @@ Everything is optional and set via environment variables.
 | `PHONE_URL` | — (else `PHONE_IP`, else LAN discovery) |
 | `PHONE_IP`  | — |
 | `DEVICE`    | auto-detected v4l2loopback node |
+| `OUTPUT_SIZE` | `1280x720` — everything is scaled to this, so the size never changes |
 
 ## Development
 
