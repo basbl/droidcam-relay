@@ -1,6 +1,6 @@
 [package]
 name = "droidcam-relay"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 rust-version = "1.74"
 description = "DroidCam Relay: relays a DroidCam MJPEG stream to a v4l2loopback virtual webcam."
