@@ -1,5 +1,7 @@
 # DroidCam Relay
 
+[![CI](https://github.com/basbl/droidcam-relay/actions/workflows/ci.yml/badge.svg)](https://github.com/basbl/droidcam-relay/actions/workflows/ci.yml)
+
 Relays a DroidCam MJPEG stream from a phone to a v4l2loopback virtual webcam.
 
 ```

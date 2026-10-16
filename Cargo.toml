@@ -6,6 +6,7 @@ rust-version = "1.74"
 description = "DroidCam Relay: relays a DroidCam MJPEG stream to a v4l2loopback virtual webcam."
 license = "MIT"
 readme = "README.md"
+repository = "https://github.com/basbl/droidcam-relay"
 keywords = ["mjpeg", "v4l2loopback", "webcam", "droidcam", "video"]
 categories = ["command-line-utilities", "multimedia::video"]
 
