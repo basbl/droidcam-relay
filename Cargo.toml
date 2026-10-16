@@ -1,0 +1,19 @@
+[package]
+name = "droidcam-relay"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.74"
+description = "DroidCam Relay: relays a DroidCam MJPEG stream to a v4l2loopback virtual webcam."
+license = "MIT"
+readme = "README.md"
+keywords = ["mjpeg", "v4l2loopback", "webcam", "droidcam", "video"]
+categories = ["command-line-utilities", "multimedia::video"]
+
+[[bin]]
+name = "droidcam-relay"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
+lto = true
+strip = true

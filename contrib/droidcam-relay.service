@@ -1,0 +1,13 @@
+[Unit]
+Description=DroidCam Relay (phone MJPEG to v4l2loopback webcam)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+# Expects the binary at ~/.local/bin/droidcam-relay (see the README).
+ExecStart=%h/.local/bin/droidcam-relay
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target

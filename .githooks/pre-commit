@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Pre-commit checks: formatting, lints and tests. Enable once per clone with:
+#   git config core.hooksPath .githooks
+set -euo pipefail
+
+# Only run the Rust checks when Rust sources or the manifest are staged, so
+# doc-only commits don't pay for a full build.
+if git diff --cached --name-only --diff-filter=ACMR | grep -qE '\.rs$|^Cargo\.(toml|lock)$'; then
+  echo "pre-commit: cargo fmt --check"
+  cargo fmt --check
+  echo "pre-commit: cargo clippy -D warnings"
+  cargo clippy --all-targets -- -D warnings
+  echo "pre-commit: cargo test"
+  cargo test --quiet
+fi
